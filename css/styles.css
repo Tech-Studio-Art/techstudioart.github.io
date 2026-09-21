@@ -243,7 +243,7 @@ section {
 /* ---------- Hero ---------- */
 
 .hero {
-  padding: 200px 0 60px;
+  padding: 200px 0 55px;
 }
 
 .hero-inner {
@@ -684,7 +684,7 @@ footer .container {
   }
 
   .hero {
-    padding: 150px 0 45px;
+    padding: 150px 0 40px;
   }
 
   .work-grid {
