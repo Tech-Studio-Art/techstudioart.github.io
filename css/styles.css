@@ -273,13 +273,6 @@ section {
   margin-bottom: 0;
 }
 
-.filter-bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px 28px;
-}
-
 .filter-toggle {
   display: inline-flex;
   align-items: center;
@@ -305,6 +298,10 @@ section {
 
 .filter-toggle:hover {
   border-color: var(--color-heading);
+}
+
+.filter-panel {
+  margin-bottom: 56px;
 }
 
 .filter-panel[hidden] {
