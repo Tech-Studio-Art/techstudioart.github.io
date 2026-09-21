@@ -265,12 +265,18 @@ section {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 24px 40px;
-  margin-bottom: 56px;
+  gap: 16px 40px;
+  margin-bottom: 24px;
 }
 
 .work-toolbar .section-head {
   margin-bottom: 0;
+}
+
+@media (min-width: 901px) {
+  .work-toolbar {
+    padding: 0 44px;
+  }
 }
 
 .filter-toggle {
