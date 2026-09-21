@@ -174,12 +174,21 @@ section {
 
 .nav-links a {
   font-size: 0.92rem;
+  font-weight: 600;
   color: var(--color-copy);
   transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
   color: var(--color-heading);
+}
+
+.nav-links a.btn-primary {
+  color: var(--color-bg);
+}
+
+.nav-links a.btn-primary:hover {
+  color: var(--color-bg);
 }
 
 .nav-toggle {
@@ -364,6 +373,10 @@ section {
   gap: 40px;
 }
 
+.team-member {
+  text-align: center;
+}
+
 .team-avatar {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -375,7 +388,7 @@ section {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-heading);
-  margin-bottom: 22px;
+  margin: 0 auto 22px;
 }
 
 .team-member h3 {
@@ -397,7 +410,7 @@ section {
 
 .ethos {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 80px;
   align-items: start;
 }
@@ -406,13 +419,6 @@ section {
   display: flex;
   flex-direction: column;
   gap: 36px;
-}
-
-.ethos-principle .num {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-muted);
-  margin-bottom: 10px;
 }
 
 .ethos-principle h3 {
@@ -433,6 +439,16 @@ section {
 .ethos-lead p {
   margin-bottom: 20px;
   max-width: 520px;
+}
+
+@media (min-width: 901px) {
+  .ethos-principle {
+    text-align: right;
+  }
+
+  .ethos-principle p {
+    margin-left: auto;
+  }
 }
 
 /* ---------- Contact ---------- */
@@ -539,24 +555,10 @@ footer .container {
   gap: 20px;
 }
 
-footer p {
+.footer-copy,
+.footer-rights {
   color: var(--color-muted);
   font-size: 0.85rem;
-}
-
-.footer-links {
-  display: flex;
-  gap: 28px;
-}
-
-.footer-links a {
-  font-size: 0.85rem;
-  color: var(--color-muted);
-  transition: color 0.2s ease;
-}
-
-.footer-links a:hover {
-  color: var(--color-heading);
 }
 
 /* ---------- Responsive ---------- */
@@ -608,7 +610,7 @@ footer p {
   .team-avatar {
     width: 20%;
     max-width: 72px;
-    margin-bottom: 14px;
+    margin: 0 auto 14px;
   }
 
   .ethos {

@@ -37,7 +37,7 @@ if (filterToggle && filterPanel && filterOptions) {
     filterOptions.querySelectorAll('.filter-option').forEach((o) => o.classList.remove('active'));
     option.classList.add('active');
 
-    filterToggle.textContent = `Filter: ${option.textContent}`;
+    filterToggle.textContent = filter === 'all' ? 'Filter' : `Filter: ${option.textContent}`;
     filterPanel.setAttribute('hidden', '');
     filterToggle.setAttribute('aria-expanded', 'false');
 
