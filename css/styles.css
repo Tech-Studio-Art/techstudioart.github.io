@@ -431,7 +431,7 @@ section {
 
 .work-empty {
   padding: 60px 0;
-  color: var(--color-muted);
+  color: var(--color-copy);
   display: none;
 }
 
@@ -522,6 +522,10 @@ section {
 
   .ethos-principle p {
     margin-left: auto;
+  }
+
+  .work-empty {
+    padding-left: 44px;
   }
 }
 
