@@ -236,6 +236,14 @@ section {
 
 /* ---------- Work / Filters ---------- */
 
+.filter-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px 28px;
+  margin-bottom: 56px;
+}
+
 .filter-toggle {
   display: inline-flex;
   align-items: center;
@@ -251,15 +259,11 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   transition: border-color 0.2s ease;
-  margin-bottom: 32px;
+  flex-shrink: 0;
 }
 
 .filter-toggle:hover {
   border-color: var(--color-heading);
-}
-
-.filter-panel {
-  margin-bottom: 24px;
 }
 
 .filter-panel[hidden] {
@@ -269,6 +273,7 @@ section {
 .filter-options {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 14px 28px;
 }
 

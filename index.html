@@ -47,20 +47,22 @@
         <p>Filter by industry to explore what we've built. Showing every project by default.</p>
       </div>
 
-      <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filterPanel">Filter</button>
+      <div class="filter-bar">
+        <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filterPanel">Filter</button>
 
-      <div class="filter-panel" id="filterPanel" hidden>
-        <ul class="filter-options" id="filterOptions">
-          <li class="filter-option active" data-filter="all">All</li>
-          <li class="filter-option" data-filter="art">Art</li>
-          <li class="filter-option" data-filter="medical">Medical</li>
-          <li class="filter-option" data-filter="clinic">Clinic</li>
-          <li class="filter-option" data-filter="hospitality">Hospitality</li>
-          <li class="filter-option" data-filter="ecommerce">E-commerce</li>
-          <li class="filter-option" data-filter="publishing">Publishing</li>
-          <li class="filter-option" data-filter="ai">AI</li>
-          <li class="filter-option" data-filter="tech">Tech Products</li>
-        </ul>
+        <div class="filter-panel" id="filterPanel" hidden>
+          <ul class="filter-options" id="filterOptions">
+            <li class="filter-option active" data-filter="all">All</li>
+            <li class="filter-option" data-filter="art">Art</li>
+            <li class="filter-option" data-filter="medical">Medical</li>
+            <li class="filter-option" data-filter="clinic">Clinic</li>
+            <li class="filter-option" data-filter="hospitality">Hospitality</li>
+            <li class="filter-option" data-filter="ecommerce">E-commerce</li>
+            <li class="filter-option" data-filter="publishing">Publishing</li>
+            <li class="filter-option" data-filter="ai">AI</li>
+            <li class="filter-option" data-filter="tech">Tech Products</li>
+          </ul>
+        </div>
       </div>
 
       <div class="work-grid" id="workGrid">
