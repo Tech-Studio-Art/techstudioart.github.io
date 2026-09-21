@@ -248,6 +248,8 @@ section {
   border-radius: var(--radius-pill);
   padding: 10px 20px;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   transition: border-color 0.2s ease;
   margin-bottom: 32px;
 }
@@ -276,6 +278,8 @@ section {
   color: var(--color-copy);
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   cursor: pointer;
   transition: color 0.15s ease;
 }
