@@ -31,30 +31,11 @@
   <!-- ================= HERO ================= -->
   <header class="hero">
     <div class="container hero-inner">
-      <span class="eyebrow">Technology Development Agency</span>
       <h1>We are <em>technology builders</em> for ambitious teams.</h1>
       <p>Tech Studio Art designs and engineers digital products for brands across art, healthcare, hospitality, commerce, and beyond — turning early ideas into software people rely on.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Start a project</a>
         <a href="#work" class="btn btn-ghost">See our work</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">120+</div>
-          <div class="stat-label">Products shipped</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">8</div>
-          <div class="stat-label">Industries served</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">40+</div>
-          <div class="stat-label">Builders on the team</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">11yrs</div>
-          <div class="stat-label">Building software</div>
-        </div>
       </div>
     </div>
   </header>
@@ -63,21 +44,26 @@
   <section id="work">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Our Work</span>
         <h2>Selected products, across industries.</h2>
         <p>Filter by industry to explore what we've built. Showing every project by default.</p>
       </div>
 
-      <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="art">Art</button>
-        <button class="filter-btn" data-filter="medical">Medical</button>
-        <button class="filter-btn" data-filter="clinic">Clinic</button>
-        <button class="filter-btn" data-filter="hospitality">Hospitality</button>
-        <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
-        <button class="filter-btn" data-filter="publishing">Publishing</button>
-        <button class="filter-btn" data-filter="ai">AI</button>
-        <button class="filter-btn" data-filter="tech">Tech Products</button>
+      <div class="filter-menu" id="filterMenu">
+        <button class="filter-menu-toggle" id="filterMenuToggle" aria-haspopup="listbox" aria-expanded="false">
+          <span id="filterMenuLabel">Filter: All</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="filter-menu-list" id="filterMenuList" role="listbox">
+          <li role="option" class="filter-menu-item active" data-filter="all">All</li>
+          <li role="option" class="filter-menu-item" data-filter="art">Art</li>
+          <li role="option" class="filter-menu-item" data-filter="medical">Medical</li>
+          <li role="option" class="filter-menu-item" data-filter="clinic">Clinic</li>
+          <li role="option" class="filter-menu-item" data-filter="hospitality">Hospitality</li>
+          <li role="option" class="filter-menu-item" data-filter="ecommerce">E-commerce</li>
+          <li role="option" class="filter-menu-item" data-filter="publishing">Publishing</li>
+          <li role="option" class="filter-menu-item" data-filter="ai">AI</li>
+          <li role="option" class="filter-menu-item" data-filter="tech">Tech Products</li>
+        </ul>
       </div>
 
       <div class="work-grid" id="workGrid">
@@ -85,72 +71,84 @@
           <div class="work-item-top"><span class="work-index">01</span><span class="work-tag">Art</span></div>
           <h3>Gallerion</h3>
           <p>A virtual gallery platform helping independent artists exhibit and sell work to global collectors.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="medical">
           <div class="work-item-top"><span class="work-index">02</span><span class="work-tag">Medical</span></div>
           <h3>Vitals OS</h3>
           <p>A patient monitoring dashboard that gives care teams real-time visibility into ward-wide vitals.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="clinic">
           <div class="work-item-top"><span class="work-index">03</span><span class="work-tag">Clinic</span></div>
           <h3>Clinix Booking</h3>
           <p>End-to-end scheduling and intake software built for multi-location outpatient clinics.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="hospitality">
           <div class="work-item-top"><span class="work-index">04</span><span class="work-tag">Hospitality</span></div>
           <h3>Staycove</h3>
           <p>A boutique-hotel booking engine with guest personalization and direct-booking incentives.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="ecommerce">
           <div class="work-item-top"><span class="work-index">05</span><span class="work-tag">E-commerce</span></div>
           <h3>Cartform</h3>
           <p>A headless commerce storefront that helped a DTC apparel brand triple checkout conversion.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="publishing">
           <div class="work-item-top"><span class="work-index">06</span><span class="work-tag">Publishing</span></div>
           <h3>Inkline</h3>
           <p>A subscription publishing platform for independent journalists with built-in paywalls.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="ai">
           <div class="work-item-top"><span class="work-index">07</span><span class="work-tag">AI</span></div>
           <h3>Signalwise</h3>
           <p>An AI research assistant that summarizes market signals for investment analysts.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="tech">
           <div class="work-item-top"><span class="work-index">08</span><span class="work-tag">Tech Products</span></div>
           <h3>Basecamp Sync</h3>
           <p>A developer tooling product syncing infrastructure state across hybrid cloud environments.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="ai">
           <div class="work-item-top"><span class="work-index">09</span><span class="work-tag">AI</span></div>
           <h3>Fluentdesk</h3>
           <p>An AI copilot embedded in support tools, resolving tickets before they reach an agent.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="ecommerce">
           <div class="work-item-top"><span class="work-index">10</span><span class="work-tag">E-commerce</span></div>
           <h3>Restock</h3>
           <p>Inventory forecasting software helping mid-market retailers cut overstock by a third.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="art">
           <div class="work-item-top"><span class="work-index">11</span><span class="work-tag">Art</span></div>
           <h3>Formcast</h3>
           <p>A generative design tool letting studio artists prototype installations in 3D.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
 
         <article class="work-item" data-industry="medical">
           <div class="work-item-top"><span class="work-index">12</span><span class="work-tag">Medical</span></div>
           <h3>Careloop</h3>
           <p>A remote patient monitoring app connecting chronic care patients to their physicians.</p>
+          <a href="#" class="work-open">Open <span aria-hidden="true">&#8599;</span></a>
         </article>
       </div>
 
@@ -162,7 +160,6 @@
   <section id="team">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Team</span>
         <h2>The builders behind Tech Studio Art.</h2>
         <p>A small, senior team of designers and engineers who work directly with every client.</p>
       </div>
@@ -203,7 +200,6 @@
   <section id="ethos">
     <div class="container ethos">
       <div class="ethos-lead">
-        <span class="eyebrow">Our Ethos</span>
         <h2>We call ourselves technology builders, not an agency.</h2>
         <p>Software is a craft, not a service line. We embed with founders and operators, build with the same care whether the client is a solo artist or a hospital network, and stay accountable to the product long after launch.</p>
         <p>Every engagement is led by the people who will actually write the code and design the interface — no handoffs, no account layers, no dilution between the pitch and the build.</p>
@@ -233,7 +229,6 @@
   <section id="contact">
     <div class="container contact-wrap">
       <div class="contact-info">
-        <span class="eyebrow">Contact Us</span>
         <h2>Tell us what you're building.</h2>
         <p>Share a few details about your product and our team will respond within two business days.</p>
 

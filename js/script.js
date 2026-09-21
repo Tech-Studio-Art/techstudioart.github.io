@@ -12,29 +12,48 @@ if (navToggle && navLinks) {
   });
 }
 
-// Work section — industry filter
-const filterBar = document.getElementById('filterBar');
+// Work section — industry filter menu
+const filterMenu = document.getElementById('filterMenu');
+const filterMenuToggle = document.getElementById('filterMenuToggle');
+const filterMenuLabel = document.getElementById('filterMenuLabel');
+const filterMenuList = document.getElementById('filterMenuList');
 const workItems = document.querySelectorAll('.work-item');
 const workEmpty = document.getElementById('workEmpty');
 
-if (filterBar) {
-  filterBar.addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
+if (filterMenu && filterMenuToggle && filterMenuList) {
+  filterMenuToggle.addEventListener('click', () => {
+    const isOpen = filterMenu.classList.toggle('open');
+    filterMenuToggle.setAttribute('aria-expanded', isOpen);
+  });
 
-    filterBar.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
+  filterMenuList.addEventListener('click', (e) => {
+    const item = e.target.closest('.filter-menu-item');
+    if (!item) return;
 
-    const filter = btn.dataset.filter;
+    filterMenuList.querySelectorAll('.filter-menu-item').forEach((i) => i.classList.remove('active'));
+    item.classList.add('active');
+
+    filterMenuLabel.textContent = `Filter: ${item.textContent}`;
+    filterMenu.classList.remove('open');
+    filterMenuToggle.setAttribute('aria-expanded', 'false');
+
+    const filter = item.dataset.filter;
     let visibleCount = 0;
 
-    workItems.forEach((item) => {
-      const match = filter === 'all' || item.dataset.industry === filter;
-      item.classList.toggle('hidden', !match);
+    workItems.forEach((el) => {
+      const match = filter === 'all' || el.dataset.industry === filter;
+      el.classList.toggle('hidden', !match);
       if (match) visibleCount++;
     });
 
     workEmpty.classList.toggle('visible', visibleCount === 0);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!filterMenu.contains(e.target)) {
+      filterMenu.classList.remove('open');
+      filterMenuToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 }
 
