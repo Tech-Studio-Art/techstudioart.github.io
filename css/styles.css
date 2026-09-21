@@ -530,17 +530,25 @@ section {
 .contact-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 24px 80px;
 }
 
-.contact-info h2 {
+.contact-head {
+  grid-column: 1 / -1;
+}
+
+.contact-head h2 {
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   margin-bottom: 20px;
 }
 
-.contact-info p {
+.contact-head p {
   margin-bottom: 34px;
   max-width: 440px;
+}
+
+.contact-head p:empty {
+  margin-bottom: 0;
 }
 
 .contact-detail {
