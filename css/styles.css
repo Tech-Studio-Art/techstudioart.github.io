@@ -195,12 +195,8 @@ section {
   display: none;
   position: relative;
   z-index: 200;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  gap: 6px;
-  width: 22px;
-  height: 10px;
+  width: 24px;
+  height: 16px;
   background: none;
   border: none;
   padding: 0;
@@ -208,20 +204,40 @@ section {
 }
 
 .nav-toggle-bar {
-  display: block;
+  position: absolute;
+  left: 0;
   width: 100%;
   height: 2px;
   background: var(--color-heading);
+  border-radius: 2px;
   transform-origin: center;
-  transition: transform 0.25s ease;
+  transition: top 0.25s ease, transform 0.25s ease, opacity 0.2s ease;
+}
+
+.nav-toggle-bar:nth-child(1) {
+  top: 0;
+}
+
+.nav-toggle-bar:nth-child(2) {
+  top: 7px;
+}
+
+.nav-toggle-bar:nth-child(3) {
+  top: 14px;
 }
 
 .nav-toggle.open .nav-toggle-bar:nth-child(1) {
-  transform: translateY(4px) rotate(45deg);
+  top: 7px;
+  transform: rotate(45deg);
 }
 
 .nav-toggle.open .nav-toggle-bar:nth-child(2) {
-  transform: translateY(-4px) rotate(-45deg);
+  opacity: 0;
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
 }
 
 /* ---------- Hero ---------- */
