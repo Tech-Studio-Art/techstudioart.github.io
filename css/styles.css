@@ -169,7 +169,7 @@ section {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 47px;
 }
 
 .nav-links a {
@@ -676,7 +676,7 @@ footer .container {
     align-items: center;
     justify-content: center;
     padding: var(--gutter);
-    gap: 28px;
+    gap: 42px;
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
