@@ -34,8 +34,7 @@
       <h1>We are <em>technology builders</em> for ambitious teams.</h1>
       <p>Tech Studio Art designs and engineers digital products for brands across art, healthcare, hospitality, commerce, and beyond — turning early ideas into software people rely on.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Start a project</a>
-        <a href="#work" class="btn btn-ghost">See our work</a>
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
       </div>
     </div>
   </header>
@@ -48,21 +47,19 @@
         <p>Filter by industry to explore what we've built. Showing every project by default.</p>
       </div>
 
-      <div class="filter-menu" id="filterMenu">
-        <button class="filter-menu-toggle" id="filterMenuToggle" aria-haspopup="listbox" aria-expanded="false">
-          <span id="filterMenuLabel">Filter: All</span>
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <ul class="filter-menu-list" id="filterMenuList" role="listbox">
-          <li role="option" class="filter-menu-item active" data-filter="all">All</li>
-          <li role="option" class="filter-menu-item" data-filter="art">Art</li>
-          <li role="option" class="filter-menu-item" data-filter="medical">Medical</li>
-          <li role="option" class="filter-menu-item" data-filter="clinic">Clinic</li>
-          <li role="option" class="filter-menu-item" data-filter="hospitality">Hospitality</li>
-          <li role="option" class="filter-menu-item" data-filter="ecommerce">E-commerce</li>
-          <li role="option" class="filter-menu-item" data-filter="publishing">Publishing</li>
-          <li role="option" class="filter-menu-item" data-filter="ai">AI</li>
-          <li role="option" class="filter-menu-item" data-filter="tech">Tech Products</li>
+      <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filterPanel">Filter: All</button>
+
+      <div class="filter-panel" id="filterPanel" hidden>
+        <ul class="filter-options" id="filterOptions">
+          <li class="filter-option active" data-filter="all">All</li>
+          <li class="filter-option" data-filter="art">Art</li>
+          <li class="filter-option" data-filter="medical">Medical</li>
+          <li class="filter-option" data-filter="clinic">Clinic</li>
+          <li class="filter-option" data-filter="hospitality">Hospitality</li>
+          <li class="filter-option" data-filter="ecommerce">E-commerce</li>
+          <li class="filter-option" data-filter="publishing">Publishing</li>
+          <li class="filter-option" data-filter="ai">AI</li>
+          <li class="filter-option" data-filter="tech">Tech Products</li>
         </ul>
       </div>
 

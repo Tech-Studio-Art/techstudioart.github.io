@@ -12,32 +12,36 @@ if (navToggle && navLinks) {
   });
 }
 
-// Work section — industry filter menu
-const filterMenu = document.getElementById('filterMenu');
-const filterMenuToggle = document.getElementById('filterMenuToggle');
-const filterMenuLabel = document.getElementById('filterMenuLabel');
-const filterMenuList = document.getElementById('filterMenuList');
+// Work section — industry filter
+const filterToggle = document.getElementById('filterToggle');
+const filterPanel = document.getElementById('filterPanel');
+const filterOptions = document.getElementById('filterOptions');
 const workItems = document.querySelectorAll('.work-item');
 const workEmpty = document.getElementById('workEmpty');
 
-if (filterMenu && filterMenuToggle && filterMenuList) {
-  filterMenuToggle.addEventListener('click', () => {
-    const isOpen = filterMenu.classList.toggle('open');
-    filterMenuToggle.setAttribute('aria-expanded', isOpen);
+if (filterToggle && filterPanel && filterOptions) {
+  filterToggle.addEventListener('click', () => {
+    const isHidden = filterPanel.hasAttribute('hidden');
+    if (isHidden) {
+      filterPanel.removeAttribute('hidden');
+    } else {
+      filterPanel.setAttribute('hidden', '');
+    }
+    filterToggle.setAttribute('aria-expanded', isHidden);
   });
 
-  filterMenuList.addEventListener('click', (e) => {
-    const item = e.target.closest('.filter-menu-item');
-    if (!item) return;
+  filterOptions.addEventListener('click', (e) => {
+    const option = e.target.closest('.filter-option');
+    if (!option) return;
 
-    filterMenuList.querySelectorAll('.filter-menu-item').forEach((i) => i.classList.remove('active'));
-    item.classList.add('active');
+    filterOptions.querySelectorAll('.filter-option').forEach((o) => o.classList.remove('active'));
+    option.classList.add('active');
 
-    filterMenuLabel.textContent = `Filter: ${item.textContent}`;
-    filterMenu.classList.remove('open');
-    filterMenuToggle.setAttribute('aria-expanded', 'false');
+    filterToggle.textContent = `Filter: ${option.textContent}`;
+    filterPanel.setAttribute('hidden', '');
+    filterToggle.setAttribute('aria-expanded', 'false');
 
-    const filter = item.dataset.filter;
+    const filter = option.dataset.filter;
     let visibleCount = 0;
 
     workItems.forEach((el) => {
@@ -47,13 +51,6 @@ if (filterMenu && filterMenuToggle && filterMenuList) {
     });
 
     workEmpty.classList.toggle('visible', visibleCount === 0);
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!filterMenu.contains(e.target)) {
-      filterMenu.classList.remove('open');
-      filterMenuToggle.setAttribute('aria-expanded', 'false');
-    }
   });
 }
 
