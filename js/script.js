@@ -43,11 +43,11 @@ if (filterToggle && filterPanel && filterOptions) {
     filterOptions.querySelectorAll('.filter-option').forEach((o) => o.classList.remove('active'));
     option.classList.add('active');
 
+    const filter = option.dataset.filter;
     filterToggle.textContent = filter === 'all' ? 'Filter' : `Filter: ${option.textContent}`;
     filterPanel.setAttribute('hidden', '');
     filterToggle.setAttribute('aria-expanded', 'false');
 
-    const filter = option.dataset.filter;
     let visibleCount = 0;
 
     workItems.forEach((el) => {
