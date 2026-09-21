@@ -293,6 +293,10 @@ section {
   .work-toolbar {
     padding: 0 44px;
   }
+
+  .filter-panel {
+    padding-left: 44px;
+  }
 }
 
 .filter-toggle {
