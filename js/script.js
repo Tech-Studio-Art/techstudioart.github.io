@@ -71,7 +71,7 @@ if (contactForm) {
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     const original = submitBtn.textContent;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
+    submitBtn.textContent = 'SENDING...';
     if (formStatus) formStatus.textContent = '';
 
     const formData = new FormData(contactForm);
@@ -85,14 +85,14 @@ if (contactForm) {
       const result = await response.json();
 
       if (result.success) {
-        submitBtn.textContent = 'Message sent';
+        submitBtn.textContent = 'MESSAGE SENT';
         contactForm.reset();
       } else {
-        submitBtn.textContent = 'Something went wrong';
+        submitBtn.textContent = 'SOMETHING WENT WRONG';
         if (formStatus) formStatus.textContent = result.message || 'Please try again.';
       }
     } catch (err) {
-      submitBtn.textContent = 'Something went wrong';
+      submitBtn.textContent = 'SOMETHING WENT WRONG';
       if (formStatus) formStatus.textContent = 'Network error — please try again.';
     }
 
