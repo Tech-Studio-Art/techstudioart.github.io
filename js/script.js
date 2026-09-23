@@ -60,16 +60,43 @@ if (filterToggle && filterPanel && filterOptions) {
   });
 }
 
-// Contact form — basic client-side handling (no backend wired up)
+// Contact form — submits to Web3Forms (https://web3forms.com)
 const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     const original = submitBtn.textContent;
-    submitBtn.textContent = 'Message sent';
-    contactForm.reset();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    if (formStatus) formStatus.textContent = '';
+
+    const formData = new FormData(contactForm);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        submitBtn.textContent = 'Message sent';
+        contactForm.reset();
+      } else {
+        submitBtn.textContent = 'Something went wrong';
+        if (formStatus) formStatus.textContent = result.message || 'Please try again.';
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Something went wrong';
+      if (formStatus) formStatus.textContent = 'Network error — please try again.';
+    }
+
+    submitBtn.disabled = false;
     setTimeout(() => {
       submitBtn.textContent = original;
     }, 2500);

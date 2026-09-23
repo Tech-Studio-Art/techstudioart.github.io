@@ -627,6 +627,15 @@ section {
   align-self: flex-start;
 }
 
+.hidden-field {
+  display: none;
+}
+
+.form-status {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
 /* ---------- Footer ---------- */
 
 footer {
