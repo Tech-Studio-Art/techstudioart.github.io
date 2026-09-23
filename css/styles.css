@@ -168,14 +168,14 @@ section {
 .logo-mark {
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 @media (min-width: 901px) {
   .logo-mark {
     width: calc(28px + var(--copy-line));
     height: calc(28px + var(--copy-line));
-    border-radius: 12px;
   }
 }
 
