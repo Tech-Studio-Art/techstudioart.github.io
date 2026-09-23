@@ -171,6 +171,14 @@ section {
   border-radius: 8px;
 }
 
+@media (min-width: 901px) {
+  .logo-mark {
+    width: calc(28px + var(--copy-line));
+    height: calc(28px + var(--copy-line));
+    border-radius: 12px;
+  }
+}
+
 .logo span {
   color: var(--color-copy);
 }
