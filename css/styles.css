@@ -843,3 +843,9 @@ footer .container {
     gap: 36px;
   }
 }
+
+@media (max-width: 900px) {
+  .hero-br {
+    display: none;
+  }
+}
