@@ -436,6 +436,22 @@ section {
   margin-bottom: 24px;
 }
 
+.work-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.work-date {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-heading);
+  text-align: right;
+}
+
 .work-open {
   display: inline-flex;
   align-items: center;
@@ -779,5 +795,52 @@ footer .container {
 
   .team-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Applied Drones page ---------- */
+
+.drone-visual {
+  padding: 0 0 55px;
+}
+
+.drone-visual img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.drone-statement {
+  max-width: 760px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 64px;
+}
+
+.app-item h3 {
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+}
+
+.app-item p {
+  color: var(--color-copy);
+  max-width: 440px;
+}
+
+.drone-status {
+  margin-bottom: 0;
+}
+
+.drone-status p {
+  margin-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 }
