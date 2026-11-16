@@ -164,11 +164,6 @@
         noGlow(); ctx.textAlign = 'left';
         pulse = Math.max(0, pulse - dt * 1.5);
         drone(cx, cy, 0.9, { pulse: pulse });
-        // progress bar
-        var bw = 520, bx = cx - bw / 2, by = 640;
-        ctx.strokeStyle = CY; ctx.lineWidth = 2; glow(CY, 10); ctx.strokeRect(bx, by, bw, 18);
-        ctx.fillStyle = MG; glow(MG, 12); ctx.fillRect(bx + 3, by + 3, (bw - 6) * clamp(u / 1.35), 12);
-        noGlow();
       }
     };
   }
@@ -341,7 +336,9 @@
     ctx.font = '600 26px ' + MONO; ctx.textBaseline = 'alphabetic';
     ctx.globalAlpha = 1;
     ctx.fillStyle = MG; glow(MG, 10);
-    ctx.fillText(sc.name, 78, 842);
+    ctx.textAlign = 'center';
+    ctx.fillText(sc.name, W / 2, 110);
+    ctx.textAlign = 'left';
     ctx.globalAlpha = 1; noGlow();
   }
 
