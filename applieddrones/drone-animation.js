@@ -222,12 +222,13 @@
       flame(FIRE_AT.x, FIRE_AT.y + 8, f * 1.1);
       if (f > 0.05) for (var s = 0; s < 3; s++) circle(FIRE_AT.x + Math.sin(T * 2 + s) * 14, FIRE_AT.y - 40 - ((T * 30 + s * 25) % 75), 10 + s * 3, 'rgba(80,120,80,' + 0.35 * f + ')');
       ctx.fillStyle = '#010a01'; ctx.strokeStyle = MG; ctx.lineWidth = 3; glow(MG, 12);
-      ctx.fillRect(470, GROUND - 42, 80, 42); ctx.strokeRect(470, GROUND - 42, 80, 42); noGlow();
+      var pumpX = mobile ? 940 : 470;
+      ctx.fillRect(pumpX, GROUND - 42, 80, 42); ctx.strokeRect(pumpX, GROUND - 42, 80, 42); noGlow();
       var t0 = sm(u / 2.6);
-      var dx = lerp(540, 975, t0), dy = lerp(700, 300, t0) + (u > 2.6 ? Math.sin(T * 3) * 6 : 0);
+      var dx = lerp(pumpX + 70, 975, t0), dy = lerp(700, 300, t0) + (u > 2.6 ? Math.sin(T * 3) * 6 : 0);
       var nx = dx + 52, ny = dy + 50;
       ctx.strokeStyle = '#ff2a2a'; ctx.lineWidth = 7; ctx.lineCap = 'round'; glow('#ff2a2a', 14);
-      ctx.beginPath(); ctx.moveTo(510, GROUND - 42); ctx.quadraticCurveTo((510 + nx) / 2, Math.max(GROUND - 42, ny) + 30 * (1 - t0 * 0.5), nx, ny); ctx.stroke(); noGlow();
+      ctx.beginPath(); ctx.moveTo(pumpX + 40, GROUND - 42); ctx.quadraticCurveTo((pumpX + 40 + nx) / 2, Math.max(GROUND - 42, ny) + 30 * (1 - t0 * 0.5), nx, ny); ctx.stroke(); noGlow();
       if (u > 2.7 && f > 0.02) {
         var k = spawnN(130, dt);
         for (var m = 0; m < k; m++) {
