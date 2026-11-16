@@ -27,7 +27,7 @@
     g.fillStyle = sky; g.fillRect(0, 0, W, H);
     g.font = '500 18px ' + MONO; g.textBaseline = 'top';
     for (var y = 0; y < GROUND; y += 30) for (var x = 0; x < W; x += 26) {
-      g.fillStyle = 'rgba(25,240,255,' + (0.025 + rnd() * 0.04) + ')';
+      g.fillStyle = 'rgba(0,255,0,' + (0.03 + rnd() * 0.05) + ')';
       g.fillText(rnd() < 0.5 ? '1' : '0', x, y);
     }
     // far skyline
@@ -148,7 +148,7 @@
         var n = spawnN(140, dt);
         for (var k = 0; k < n; k++) {
           var a = pr() * 6.283, d = 380 + pr() * 380;
-          digits.push({ x0: cx + Math.cos(a) * d * 1.6, y0: cy + Math.sin(a) * d * 0.85, t: 0, dur: 0.45 + pr() * 0.45, s: pr() < 0.5 ? '1' : '0', sw: (pr() - 0.5) * 120, c: pr() < 0.6 ? CY : MG });
+          digits.push({ x0: cx + Math.cos(a) * d * 1.6, y0: cy + Math.sin(a) * d * 0.85, t: 0, dur: 0.45 + pr() * 0.45, s: pr() < 0.5 ? '1' : '0', sw: (pr() - 0.5) * 120, c: MG });
         }
         ctx.font = '700 28px ' + MONO; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
         for (var i = digits.length - 1; i >= 0; i--) {
@@ -232,7 +232,7 @@
       var t0 = sm(u / 2.6);
       var dx = lerp(540, 975, t0), dy = lerp(700, 300, t0) + (u > 2.6 ? Math.sin(T * 3) * 6 : 0);
       var nx = dx + 52, ny = dy + 50;
-      ctx.strokeStyle = MG; ctx.lineWidth = 7; ctx.lineCap = 'round'; glow(MG, 14);
+      ctx.strokeStyle = '#ff2a2a'; ctx.lineWidth = 7; ctx.lineCap = 'round'; glow('#ff2a2a', 14);
       ctx.beginPath(); ctx.moveTo(510, GROUND - 42); ctx.quadraticCurveTo((510 + nx) / 2, Math.max(GROUND - 42, ny) + 30 * (1 - t0 * 0.5), nx, ny); ctx.stroke(); noGlow();
       if (u > 2.7 && f > 0.02) {
         var k = spawnN(130, dt);
