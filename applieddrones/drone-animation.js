@@ -107,9 +107,8 @@
   function winX(c) { return B.x + 12 + c * 62; }
   function winY(r) { return B.top + 16 + r * B.rowH; }
   function building(winFn) {
-    ctx.fillStyle = '#010a01'; ctx.strokeStyle = CY; ctx.lineWidth = 3; glow(CY, 16);
+    ctx.fillStyle = '#010a01'; ctx.strokeStyle = '#2f8f45'; ctx.lineWidth = 1.5; noGlow();
     ctx.fillRect(B.x, B.top, B.w, B.ground - B.top); ctx.strokeRect(B.x, B.top, B.w, B.ground - B.top);
-    noGlow();
     for (var r = 0; r < 11; r++) for (var c = 0; c < 4; c++) winFn(r, c, winX(c), winY(r), 38, 34);
     ground();
   }
