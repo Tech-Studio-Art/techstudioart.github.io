@@ -349,9 +349,6 @@
     ctx.globalAlpha = flick;
     ctx.fillStyle = MG; glow(MG, 10);
     ctx.fillText(sc.name, 78, 842);
-    var job = Math.floor(idx / 2) + 1;
-    ctx.fillStyle = CY; glow(CY, 8); ctx.textAlign = 'right';
-    ctx.fillText(job + ' / 4', W - 78, 842); ctx.textAlign = 'left';
     ctx.globalAlpha = 1; noGlow();
   }
 
