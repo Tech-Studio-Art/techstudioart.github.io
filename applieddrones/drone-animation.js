@@ -180,7 +180,7 @@
     reset: function () { parts = []; },
     draw: function (u, dt) {
       if (mobile) building(function (r, c, x, y, w, h) { dimWin(x, y, w, h); });
-      var pf = clamp((u - (mobile ? 0.05 : 0.5)) / (mobile ? 6.4 : 3.9)), dx = lerp(PX0, PX1, mobile ? pf : sm(pf)), dy = 330 + Math.sin(T * 3) * 6;
+      var pf = clamp((u - (mobile ? 0.05 : 0.5)) / (mobile ? 5.1 : 3.9)), dx = lerp(PX0, PX1, mobile ? pf : sm(pf)), dy = 330 + Math.sin(T * 3) * 6;
       for (var j = 0; j < haze.length; j++) {
         var h = haze[j];
         var clear = sm((dx - h.x + 80) / 260);
@@ -188,7 +188,7 @@
         if (a < 0.01) continue;
         circle(h.x + Math.sin(T + h.ph) * 10, h.y + Math.cos(T * 0.7 + h.ph) * 6, h.r, 'rgba(80,120,80,' + a * 0.8 + ')');
       }
-      if (u > (mobile ? 0.25 : 0.7) && u < (mobile ? 6.5 : 4.5)) {
+      if (u > (mobile ? 0.25 : 0.7) && u < (mobile ? 5.2 : 4.5)) {
         var k = spawnN(110, dt);
         for (var m = 0; m < k; m++) parts.push({ x: dx + (pr() - 0.5) * 70, y: dy + 55, vx: (pr() - 0.5) * 90 + 60, vy: 60 + pr() * 120, life: 0, max: 3 });
       }
@@ -370,7 +370,7 @@
     cv.width = W * RES; cv.height = H * RES;
     cv.style.aspectRatio = W + ' / ' + H;
     buildBg(); buildHaze();
-    S1.dur = mobile ? 7.5 : 5;
+    S1.dur = mobile ? 6 : 5;
     parts = []; scenes[idx].reset();
   }
   setup();
