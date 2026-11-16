@@ -3,7 +3,8 @@
   var cv = document.getElementById('droneAnim');
   if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d', { alpha: false });
-  var W = 1600, H = 770;
+  // World is 1600 x 770. On phones the view is cropped to a 520-wide window centred on the main building.
+  var WORLD_W = 1600, H = 770, W = 1600, camX = 0, RES = 1, mobile = false, PX0 = 330, PX1 = 1250;
   var BG = '#000000', CY = '#19f0ff', MG = '#00ff00', YL = '#b6ffb6', HOT = '#00ff00', DIM = '#031003', EDGE = '#0a5a0a', WH = '#e8fff0';
   var MONO = 'ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace';
   var clamp = function (v, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a === undefined ? 0 : a, v)); };
@@ -19,20 +20,21 @@
 
   // ---- static backdrop: night sky, far skyline, neon floor grid, scanlines, vignette ----
   var bgc = document.createElement('canvas');
-  bgc.width = W; bgc.height = H;
-  (function () {
+  bgc.width = WORLD_W; bgc.height = H;
+  function buildBg() {
+    seed = 11;
     var g = bgc.getContext('2d');
     var sky = g.createLinearGradient(0, 0, 0, GROUND);
     sky.addColorStop(0, '#000000'); sky.addColorStop(0.7, '#010601'); sky.addColorStop(1, '#04200a');
-    g.fillStyle = sky; g.fillRect(0, 0, W, H);
+    g.fillStyle = sky; g.fillRect(0, 0, WORLD_W, H);
     g.font = '500 18px ' + MONO; g.textBaseline = 'top';
-    for (var y = 0; y < GROUND; y += 30) for (var x = 0; x < W; x += 26) {
+    for (var y = 0; y < GROUND; y += 30) for (var x = 0; x < WORLD_W; x += 26) {
       g.fillStyle = 'rgba(0,255,0,' + (0.03 + rnd() * 0.05) + ')';
       g.fillText(rnd() < 0.5 ? '1' : '0', x, y);
     }
     // far skyline
     var x0 = 0;
-    while (x0 < W) {
+    while (x0 < WORLD_W) {
       var w = 40 + rnd() * 70, h = 120 + rnd() * 330;
       g.fillStyle = '#010801'; g.fillRect(x0, GROUND - h, w, h);
       g.strokeStyle = 'rgba(0,255,0,.35)'; g.lineWidth = 2; g.strokeRect(x0 + 1, GROUND - h, w - 2, h);
@@ -47,11 +49,11 @@
     }
     // scanlines
     g.fillStyle = 'rgba(0,0,0,.22)';
-    for (var s = 0; s < H; s += 4) g.fillRect(0, s, W, 1.5);
-    var vg = g.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 960);
+    for (var s = 0; s < H; s += 4) g.fillRect(0, s, WORLD_W, 1.5);
+    var vcx = camX + W / 2, vg = g.createRadialGradient(vcx, H / 2, mobile ? 150 : 300, vcx, H / 2, mobile ? 520 : 960);
     vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.6)');
-    g.fillStyle = vg; g.fillRect(0, 0, W, H);
-  })();
+    g.fillStyle = vg; g.fillRect(0, 0, WORLD_W, H);
+  }
 
   var T = 0, carry = 0;
   function spawnN(rate, dt) { carry += rate * dt; var n = Math.floor(carry); carry -= n; return n; }
@@ -139,11 +141,11 @@
       dur: 1.5, fade: 0.18, name: 'program', prog: true,
       reset: function () { digits = []; pulse = 0; },
       draw: function (u, dt) {
-        var cx = 800, cy = 400 + Math.sin(T * 2.4) * 6;
-        var n = spawnN(140, dt);
+        var cx = camX + W / 2, cy = 400 + Math.sin(T * 2.4) * 6, xs = mobile ? 0.4 : 1;
+        var n = spawnN(mobile ? 90 : 140, dt);
         for (var k = 0; k < n; k++) {
           var a = pr() * 6.283, d = 380 + pr() * 380;
-          digits.push({ x0: cx + Math.cos(a) * d * 1.6, y0: cy + Math.sin(a) * d * 0.85, t: 0, dur: 0.45 + pr() * 0.45, s: pr() < 0.5 ? '1' : '0', sw: (pr() - 0.5) * 120, c: MG });
+          digits.push({ x0: cx + Math.cos(a) * d * 1.6 * xs, y0: cy + Math.sin(a) * d * 0.85, t: 0, dur: 0.45 + pr() * 0.45, s: pr() < 0.5 ? '1' : '0', sw: (pr() - 0.5) * 120, c: MG });
         }
         ctx.font = '700 28px ' + MONO; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
         for (var i = digits.length - 1; i >= 0; i--) {
@@ -159,24 +161,26 @@
         }
         noGlow(); ctx.textAlign = 'left';
         pulse = Math.max(0, pulse - dt * 1.5);
-        drone(cx, cy, 0.9, { pulse: pulse });
+        drone(cx, cy, mobile ? 0.75 : 0.9, { pulse: pulse });
       }
     };
   }
 
   // ---------- Pollution control ----------
   var haze = [];
-  (function () {
+  function buildHaze() {
+    haze = [];
     seed = 99;
-    for (var i = 0; i < 70; i++) haze.push({ x: 480 + rnd() * 660, y: 520 + rnd() * 230, r: 30 + rnd() * 44, a: 0.3 + rnd() * 0.25, ph: rnd() * 6 });
+    for (var i = 0; i < 70; i++) haze.push({ x: (mobile ? 900 : 480) + rnd() * (mobile ? 520 : 660), y: 520 + rnd() * 230, r: 30 + rnd() * 44, a: 0.3 + rnd() * 0.25, ph: rnd() * 6 });
     seed = 123;
-  })();
+  }
+
   var S1 = {
     dur: 5, fade: 0.4, name: 'pollution control',
     reset: function () { parts = []; },
     draw: function (u, dt) {
-      ground();
-      var dx = lerp(330, 1250, sm((u - 0.5) / 3.9)), dy = 330 + Math.sin(T * 3) * 6;
+      if (mobile) building(function (r, c, x, y, w, h) { dimWin(x, y, w, h); });
+      var dx = lerp(PX0, PX1, sm((u - 0.5) / 3.9)), dy = 330 + Math.sin(T * 3) * 6;
       for (var j = 0; j < haze.length; j++) {
         var h = haze[j];
         var clear = sm((dx - h.x + 80) / 260);
@@ -337,10 +341,14 @@
     T += dt; u += dt;
     var sc = scenes[idx];
     if (u >= sc.dur) { u = 0; idx = (idx + 1) % scenes.length; sc = scenes[idx]; sc.reset(); }
+    ctx.setTransform(RES, 0, 0, RES, 0, 0);
     ctx.globalAlpha = 1; noGlow();
-    ctx.drawImage(bgc, 0, 0);
+    ctx.drawImage(bgc, camX, 0, W, H, 0, 0, W, H);
+    ctx.save();
+    ctx.translate(-camX, 0);
     ctx.globalAlpha = clamp(Math.min(u / sc.fade, (sc.dur - u) / sc.fade));
     sc.draw(u, dt);
+    ctx.restore();
     ctx.globalAlpha = 1; noGlow();
     hud(sc);
   }
@@ -352,6 +360,19 @@
   }
   function start() { if (running) return; running = true; last = 0; raf = requestAnimationFrame(loop); }
   function stop() { running = false; cancelAnimationFrame(raf); }
+
+  var mq = window.matchMedia ? window.matchMedia('(max-width: 900px)') : null;
+  function setup() {
+    mobile = !!(mq && mq.matches);
+    W = mobile ? 520 : WORLD_W; camX = mobile ? 895 : 0; RES = mobile ? 2 : 1;
+    PX0 = mobile ? 760 : 330; PX1 = mobile ? 1500 : 1250;
+    cv.width = W * RES; cv.height = H * RES;
+    cv.style.aspectRatio = W + ' / ' + H;
+    buildBg(); buildHaze();
+    parts = []; scenes[idx].reset();
+  }
+  setup();
+  if (mq && mq.addEventListener) mq.addEventListener('change', setup);
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) {
