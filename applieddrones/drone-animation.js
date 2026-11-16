@@ -248,36 +248,31 @@
     dur: 5, fade: 0.4, name: 'hyperlocal delivery',
     reset: function () { parts = []; },
     draw: function (u) {
-      var open = sm((u - 2.8) / 0.6);
+      var tx = DW.x + DW.w / 2, ty = DW.y + DW.h / 2;
+      var hoverX = tx, hoverY = ty - 46;
+      var open = sm((u - 2.2) / 0.5);
       building(function (r, c, x, y, w, h) {
         dimWin(x, y, w, h);
-        if (r === 5 && c === 2 && open > 0) { ctx.fillStyle = 'rgba(255,212,0,' + (0.85 * open) + ')'; glow('#ffd400', 14 * open); ctx.fillRect(x, y, w, h); noGlow(); }
+        if (r === 5 && c === 2 && open > 0) { ctx.fillStyle = 'rgba(255,212,0,' + (0.3 * open) + ')'; ctx.fillRect(x, y, w, h); ctx.strokeStyle = 'rgba(255,212,0,' + (0.8 * open) + ')'; ctx.lineWidth = 2; ctx.strokeRect(x, y, w, h); }
       });
-      var dx, dy;
-      if (u < 2.4) { var t = sm(u / 2.4); dx = lerp(250, 975, t); dy = lerp(640, 430, t); }
-      else if (u < 3.6) { dx = 975; dy = 430 + Math.sin(T * 3) * 5; }
-      else { var t2 = sm((u - 3.6) / 1.4); dx = lerp(975, 650, t2); dy = lerp(430, 220, t2); }
-      var px = dx, py = dy + 78, sc = 1;
-      if (u >= 2.8 && u < 3.7) {
-        var q = sm((u - 2.8) / 0.9);
-        ctx.strokeStyle = 'rgba(25,240,255,.8)'; ctx.lineWidth = 2; glow(CY, 8);
-        ctx.beginPath(); ctx.moveTo(dx + 40, dy + 50); ctx.lineTo(DW.x + 19, DW.y + 17); ctx.stroke(); noGlow();
-        px = lerp(dx, DW.x + 19, q); py = lerp(dy + 78, DW.y + 17, q); sc = lerp(1, 0.45, q);
+      var dx, dy, tilt = 0;
+      if (u < 2.4) { var t = sm(u / 2.4); dx = lerp(250, hoverX, t); dy = lerp(640, hoverY, t); tilt = 0.08 * (1 - t); }
+      else if (u < 3.2) { dx = hoverX; dy = hoverY + Math.sin(T * 3) * 2; }
+      else { var t2 = sm((u - 3.2) / 1.6); dx = lerp(hoverX, 650, t2); dy = lerp(hoverY, 220, t2); tilt = -0.08 * t2; }
+      // package: carried under the drone, then left sitting in the window
+      var px, py, sc = 1;
+      if (u < 3.0) { px = dx; py = dy + 46; }
+      else { var q = sm((u - 3.0) / 0.3); px = tx; py = ty; sc = lerp(1, 0.9, q); }
+      ctx.fillStyle = '#ffd400'; glow('#ffd400', 10);
+      ctx.fillRect(px - 15 * sc, py - 14 * sc, 30 * sc, 28 * sc); noGlow();
+      ctx.strokeStyle = '#7a5f00'; ctx.lineWidth = 3 * sc;
+      ctx.beginPath(); ctx.moveTo(px, py - 14 * sc); ctx.lineTo(px, py + 14 * sc); ctx.stroke();
+      if (u > 3.5) {
+        var a = sm((u - 3.5) / 0.4);
+        ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = CY; ctx.lineWidth = 4; ctx.lineCap = 'round'; glow(CY, 10);
+        ctx.beginPath(); ctx.arc(tx, ty, 34, 0, 7); ctx.stroke(); ctx.restore(); noGlow();
       }
-      if (u < 3.7) {
-        ctx.strokeStyle = CY; ctx.lineWidth = 2;
-        if (u < 2.8) { ctx.beginPath(); ctx.moveTo(dx - 14, dy + 40); ctx.lineTo(px - 14 * sc, py - 18); ctx.moveTo(dx + 14, dy + 40); ctx.lineTo(px + 14 * sc, py - 18); ctx.stroke(); }
-        ctx.fillStyle = '#ffd400'; glow('#ffd400', 14); ctx.fillRect(px - 20 * sc, py - 18 * sc, 40 * sc, 36 * sc); noGlow();
-        ctx.strokeStyle = '#7a5f00'; ctx.lineWidth = 4 * sc; ctx.beginPath(); ctx.moveTo(px, py - 18 * sc); ctx.lineTo(px, py + 18 * sc); ctx.stroke();
-      }
-      if (u > 3.7) {
-        var a = sm((u - 3.7) / 0.4);
-        ctx.strokeStyle = CY; ctx.globalAlpha *= a; ctx.lineWidth = 5; ctx.lineCap = 'round'; glow(CY, 14);
-        ctx.beginPath(); ctx.arc(DW.x + 19, DW.y + 17, 34, 0, 7); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(DW.x + 5, DW.y + 17); ctx.lineTo(DW.x + 16, DW.y + 28); ctx.lineTo(DW.x + 36, DW.y + 6); ctx.stroke(); noGlow();
-        ctx.globalAlpha /= (a || 1);
-      }
-      drone(dx, dy, 0.3, { tilt: u < 2.4 ? 0.08 : (u > 3.6 ? -0.08 : 0) });
+      drone(dx, dy, 0.3, { tilt: tilt });
     }
   };
 
