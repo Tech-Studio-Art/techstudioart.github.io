@@ -18,7 +18,7 @@ if (navToggle && navLinks) {
   });
 }
 
-// Work section — industry filter
+// Work section - industry filter
 const filterToggle = document.getElementById('filterToggle');
 const filterPanel = document.getElementById('filterPanel');
 const filterOptions = document.getElementById('filterOptions');
@@ -60,7 +60,7 @@ if (filterToggle && filterPanel && filterOptions) {
   });
 }
 
-// Contact form — submits to Web3Forms (https://web3forms.com)
+// Contact form - submits to Web3Forms (https://web3forms.com)
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 
@@ -93,7 +93,7 @@ if (contactForm) {
       }
     } catch (err) {
       submitBtn.textContent = 'SOMETHING WENT WRONG';
-      if (formStatus) formStatus.textContent = 'Network error — please try again.';
+      if (formStatus) formStatus.textContent = 'Network error - please try again.';
     }
 
     submitBtn.disabled = false;

@@ -1,5 +1,5 @@
 /* ============================================
-   Tech Studio Art — Design System
+   Tech Studio Art - Design System
    Single background, single font, minimal palette.
    Change the variables below to reflect across the whole site.
    ============================================ */
@@ -7,9 +7,9 @@
 :root {
   /* -- Core palette (edit here to re-theme the whole site) -- */
   --color-bg: #f7f5ee;          /* single background color for entire site */
-  --color-copy: #3c5c4b;        /* copy text color (1 color for all body copy) — dark green */
-  --color-heading: #142920;     /* heading color, also used on buttons — deep dark green */
-  --color-muted: #7c9284;       /* secondary/faint text — dividers, labels, meta */
+  --color-copy: #3c5c4b;        /* copy text color (1 color for all body copy) - dark green */
+  --color-heading: #142920;     /* heading color, also used on buttons - deep dark green */
+  --color-muted: #7c9284;       /* secondary/faint text - dividers, labels, meta */
   --color-accent: #142920;      /* accent = same as heading, kept as its own var for clarity */
 
   /* -- Derived tints (kept relative to the palette above, no new hardcoded colors) -- */
@@ -802,7 +802,8 @@ footer .container {
   padding: 0 0 55px;
 }
 
-.drone-visual img {
+.drone-visual canvas {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
