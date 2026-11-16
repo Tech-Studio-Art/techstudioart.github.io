@@ -338,12 +338,6 @@
   scenes[0].reset();
 
   function hud(sc) {
-    // corner brackets
-    ctx.strokeStyle = 'rgba(0,255,0,.55)'; ctx.lineWidth = 3; glow(MG, 8);
-    var m = 36, l = 46;
-    [[m, m, 1, 1], [W - m, m, -1, 1]].forEach(function (c) {
-      ctx.beginPath(); ctx.moveTo(c[0] + c[2] * l, c[1]); ctx.lineTo(c[0], c[1]); ctx.lineTo(c[0], c[1] + c[3] * l); ctx.stroke();
-    });
     ctx.font = '600 26px ' + MONO; ctx.textBaseline = 'alphabetic';
     ctx.globalAlpha = 1;
     ctx.fillStyle = MG; glow(MG, 10);
