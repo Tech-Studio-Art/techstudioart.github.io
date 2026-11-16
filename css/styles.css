@@ -444,11 +444,9 @@ section {
 }
 
 .work-date {
-  font-size: 1.35rem;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--color-heading);
+  font-size: var(--copy-size);
+  line-height: var(--copy-line);
+  color: var(--color-copy);
   text-align: right;
 }
 
