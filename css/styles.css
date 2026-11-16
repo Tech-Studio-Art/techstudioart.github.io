@@ -805,7 +805,7 @@ footer .container {
 .drone-visual canvas {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1600 / 770;
   object-fit: cover;
 }
 

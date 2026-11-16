@@ -3,7 +3,7 @@
   var cv = document.getElementById('droneAnim');
   if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d', { alpha: false });
-  var W = 1600, H = 900;
+  var W = 1600, H = 770;
   var BG = '#000000', CY = '#19f0ff', MG = '#00ff00', YL = '#b6ffb6', HOT = '#00ff00', DIM = '#031003', EDGE = '#0a5a0a', WH = '#e8fff0';
   var MONO = 'ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace';
   var clamp = function (v, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a === undefined ? 0 : a, v)); };
@@ -45,7 +45,6 @@
       g.globalAlpha = 1;
       x0 += w + 6 + rnd() * 24;
     }
-    g.fillStyle = '#000'; g.fillRect(0, GROUND, W, H - GROUND);
     // scanlines
     g.fillStyle = 'rgba(0,0,0,.22)';
     for (var s = 0; s < H; s += 4) g.fillRect(0, s, W, 1.5);
@@ -112,10 +111,7 @@
     for (var r = 0; r < 11; r++) for (var c = 0; c < 4; c++) winFn(r, c, winX(c), winY(r), 38, 34);
     ground();
   }
-  function ground() {
-    ctx.strokeStyle = CY; ctx.lineWidth = 3; glow(CY, 14);
-    ctx.beginPath(); ctx.moveTo(0, GROUND); ctx.lineTo(W, GROUND); ctx.stroke(); noGlow();
-  }
+  function ground() {}
   function dimWin(x, y, w, h) {
     ctx.fillStyle = DIM; ctx.fillRect(x, y, w, h);
     ctx.strokeStyle = EDGE; ctx.lineWidth = 2; ctx.strokeRect(x, y, w, h);
