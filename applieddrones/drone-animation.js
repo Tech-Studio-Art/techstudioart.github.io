@@ -1,10 +1,10 @@
-// Applied Drones animation (cyberpunk): the drone is programmed, then does one job, four times over, on a loop.
+// Applied Drones animation (green terminal): the drone is programmed, then does one job, four times over, on a loop.
 (function () {
   var cv = document.getElementById('droneAnim');
   if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d');
   var W = 1600, H = 900;
-  var BG = '#07040f', CY = '#19f0ff', MG = '#ff2bd6', YL = '#fcee09', HOT = '#ff3d6e', DIM = '#120a2a', EDGE = '#3a1d7a', WH = '#e8f9ff';
+  var BG = '#000000', CY = '#19f0ff', MG = '#00ff00', YL = '#b6ffb6', HOT = '#00ff00', DIM = '#031003', EDGE = '#0a5a0a', WH = '#e8fff0';
   var MONO = 'ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace';
   var clamp = function (v, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a === undefined ? 0 : a, v)); };
   var lerp = function (a, b, t) { return a + (b - a) * t; };
@@ -12,7 +12,7 @@
   var seed = 11;
   function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
   function pr() { return Math.random(); }
-  function glow(c, b) { ctx.shadowColor = c; ctx.shadowBlur = b; }
+  function glow(c, b) { ctx.shadowColor = c; ctx.shadowBlur = b * 0.45; }
   function noGlow() { ctx.shadowBlur = 0; ctx.shadowColor = 'transparent'; }
 
   var GROUND = 770;
@@ -23,7 +23,7 @@
   (function () {
     var g = bgc.getContext('2d');
     var sky = g.createLinearGradient(0, 0, 0, GROUND);
-    sky.addColorStop(0, '#07040f'); sky.addColorStop(0.7, '#150a30'); sky.addColorStop(1, '#3a0f55');
+    sky.addColorStop(0, '#000000'); sky.addColorStop(0.7, '#010601'); sky.addColorStop(1, '#04200a');
     g.fillStyle = sky; g.fillRect(0, 0, W, H);
     g.font = '500 18px ' + MONO; g.textBaseline = 'top';
     for (var y = 0; y < GROUND; y += 30) for (var x = 0; x < W; x += 26) {
@@ -34,24 +34,18 @@
     var x0 = 0;
     while (x0 < W) {
       var w = 40 + rnd() * 70, h = 120 + rnd() * 330;
-      g.fillStyle = '#0c0620'; g.fillRect(x0, GROUND - h, w, h);
-      g.strokeStyle = 'rgba(255,43,214,.35)'; g.lineWidth = 2; g.strokeRect(x0 + 1, GROUND - h, w - 2, h);
+      g.fillStyle = '#010801'; g.fillRect(x0, GROUND - h, w, h);
+      g.strokeStyle = 'rgba(0,255,0,.35)'; g.lineWidth = 2; g.strokeRect(x0 + 1, GROUND - h, w - 2, h);
       for (var k = 0; k < 14; k++) {
         if (rnd() < 0.55) continue;
-        var cols = [CY, MG, YL];
+        var cols = [CY, MG, MG];
         g.fillStyle = cols[Math.floor(rnd() * 3)]; g.globalAlpha = 0.5 + rnd() * 0.4;
         g.fillRect(x0 + 6 + rnd() * (w - 16), GROUND - h + 10 + rnd() * (h - 24), 5, 4);
       }
       g.globalAlpha = 1;
       x0 += w + 6 + rnd() * 24;
     }
-    // floor
-    var fl = g.createLinearGradient(0, GROUND, 0, H);
-    fl.addColorStop(0, '#1a0838'); fl.addColorStop(1, '#07040f');
-    g.fillStyle = fl; g.fillRect(0, GROUND, W, H - GROUND);
-    g.strokeStyle = 'rgba(255,43,214,.45)'; g.lineWidth = 1.5;
-    for (var i = -14; i <= 14; i++) { g.beginPath(); g.moveTo(800 + i * 40, GROUND); g.lineTo(800 + i * 230, H); g.stroke(); }
-    for (var j = 1; j < 6; j++) { var yy = GROUND + Math.pow(j / 6, 1.8) * (H - GROUND); g.beginPath(); g.moveTo(0, yy); g.lineTo(W, yy); g.stroke(); }
+    g.fillStyle = '#000'; g.fillRect(0, GROUND, W, H - GROUND);
     // scanlines
     g.fillStyle = 'rgba(0,0,0,.22)';
     for (var s = 0; s < H; s += 4) g.fillRect(0, s, W, 1.5);
@@ -67,26 +61,42 @@
     ctx.save();
     ctx.translate(x, y); ctx.rotate(o.tilt || 0); ctx.scale(s, s);
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    var arm = 190, ry = 0.62, dirs = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
-    glow(CY, 14);
+    var arm = 200, ry = 0.58, dirs = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
+    // landing skids
+    ctx.strokeStyle = MG; ctx.lineWidth = 6; glow(MG, 10);
+    ctx.beginPath(); ctx.moveTo(-95, 92); ctx.lineTo(95, 92); ctx.moveTo(-70, 52); ctx.lineTo(-84, 92); ctx.moveTo(70, 52); ctx.lineTo(84, 92); ctx.stroke();
     for (var i = 0; i < 4; i++) {
       var ax = dirs[i][0], ay = dirs[i][1], rx = ax * arm, py = ay * arm * ry;
-      ctx.strokeStyle = CY; ctx.lineWidth = 9;
-      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(rx, py); ctx.stroke();
-      ctx.fillStyle = BG;
-      ctx.beginPath(); ctx.ellipse(rx, py, 34, 18, 0, 0, 7); ctx.fill(); ctx.stroke();
-      ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,43,214,.85)'; glow(MG, 12);
-      var ph = Math.abs(Math.cos(T * 40 + ax * 1.3 + ay));
-      ctx.beginPath(); ctx.ellipse(rx, py - 16, 130, 17, 0, 0, 7); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(rx - 120 * ph, py - 16); ctx.lineTo(rx + 120 * ph, py - 16); ctx.stroke();
-      glow(CY, 14);
+      // rotor disc
+      ctx.fillStyle = 'rgba(0,255,0,.07)'; ctx.strokeStyle = 'rgba(0,255,0,.5)'; ctx.lineWidth = 2; ctx.setLineDash([10, 8]);
+      ctx.beginPath(); ctx.ellipse(rx, py - 14, 118, 24, 0, 0, 7); ctx.fill(); ctx.stroke(); ctx.setLineDash([]);
+      // arm
+      ctx.strokeStyle = MG; ctx.lineWidth = 7;
+      ctx.beginPath(); ctx.moveTo(ax * 40, ay * 26); ctx.lineTo(rx, py); ctx.stroke();
+      // motor
+      ctx.fillStyle = BG; ctx.lineWidth = 5;
+      ctx.beginPath(); ctx.ellipse(rx, py, 26, 14, 0, 0, 7); ctx.fill(); ctx.stroke();
+      // spinning blades
+      var a = T * 38 + i * 1.7;
+      ctx.lineWidth = 4; ctx.strokeStyle = WH;
+      ctx.beginPath();
+      ctx.moveTo(rx - Math.cos(a) * 108, py - 14 - Math.sin(a) * 20);
+      ctx.lineTo(rx + Math.cos(a) * 108, py - 14 + Math.sin(a) * 20);
+      ctx.stroke();
     }
-    ctx.strokeStyle = CY; ctx.lineWidth = 9; ctx.fillStyle = BG;
-    ctx.beginPath(); ctx.roundRect(-70, -48, 140, 96, 34); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = MG; glow(MG, 22);
-    ctx.beginPath(); ctx.arc(0, -4, 20 + (o.pulse || 0) * 14, 0, 7); ctx.fill();
+    // body: hexagon shell
+    ctx.strokeStyle = MG; ctx.lineWidth = 7; ctx.fillStyle = BG;
+    ctx.beginPath();
+    ctx.moveTo(-78, 0); ctx.lineTo(-44, -52); ctx.lineTo(44, -52); ctx.lineTo(78, 0); ctx.lineTo(44, 52); ctx.lineTo(-44, 52); ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    // circuit lines
+    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,255,0,.6)';
+    ctx.beginPath(); ctx.moveTo(-60, 0); ctx.lineTo(-30, 0); ctx.lineTo(-18, -20); ctx.moveTo(60, 0); ctx.lineTo(30, 0); ctx.lineTo(18, 20); ctx.stroke();
+    // camera eye
+    ctx.fillStyle = CY; glow(CY, 22);
+    ctx.beginPath(); ctx.arc(0, 4, 17 + (o.pulse || 0) * 14, 0, 7); ctx.fill();
     ctx.fillStyle = BG; noGlow();
-    ctx.beginPath(); ctx.arc(0, -4, 8, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, 4, 7, 0, 7); ctx.fill();
     ctx.restore();
     noGlow();
   }
@@ -96,7 +106,7 @@
   function winX(c) { return B.x + 12 + c * 62; }
   function winY(r) { return B.top + 16 + r * B.rowH; }
   function building(winFn) {
-    ctx.fillStyle = '#0b0520'; ctx.strokeStyle = CY; ctx.lineWidth = 3; glow(CY, 16);
+    ctx.fillStyle = '#010a01'; ctx.strokeStyle = CY; ctx.lineWidth = 3; glow(CY, 16);
     ctx.fillRect(B.x, B.top, B.w, B.ground - B.top); ctx.strokeRect(B.x, B.top, B.w, B.ground - B.top);
     noGlow();
     for (var r = 0; r < 11; r++) for (var c = 0; c < 4; c++) winFn(r, c, winX(c), winY(r), 38, 34);
@@ -130,7 +140,7 @@
   var digits = [], pulse = 0;
   function makeProgram(job) {
     return {
-      dur: 1.5, fade: 0.18, name: 'uploading ' + job.replace(/ /g, '_') + '.bin', prog: true,
+      dur: 1.5, fade: 0.18, name: 'program', prog: true,
       reset: function () { digits = []; pulse = 0; },
       draw: function (u, dt) {
         var cx = 800, cy = 400 + Math.sin(T * 2.4) * 6;
@@ -181,7 +191,7 @@
         var clear = sm((dx - h.x + 80) / 260);
         var a = h.a * (1 - clear);
         if (a < 0.01) continue;
-        circle(h.x + Math.sin(T + h.ph) * 10, h.y + Math.cos(T * 0.7 + h.ph) * 6, h.r, 'rgba(190,60,210,' + a * 0.8 + ')');
+        circle(h.x + Math.sin(T + h.ph) * 10, h.y + Math.cos(T * 0.7 + h.ph) * 6, h.r, 'rgba(80,120,80,' + a * 0.8 + ')');
       }
       if (u > 0.7 && u < 4.5) {
         var k = Math.round(dt * 110);
@@ -212,11 +222,11 @@
       var f = 1 - sm((u - 3.4) / 1.8);
       building(function (r, c, x, y, w, h) {
         dimWin(x, y, w, h);
-        if (r === 2 && c === 1) { ctx.fillStyle = 'rgba(255,61,110,' + (0.45 * f + 0.05) + ')'; ctx.fillRect(x, y, w, h); }
+        if (r === 2 && c === 1) { ctx.fillStyle = 'rgba(0,255,0,' + (0.45 * f + 0.05) + ')'; ctx.fillRect(x, y, w, h); }
       });
       flame(FIRE_AT.x, FIRE_AT.y + 8, f * 1.1);
-      if (f > 0.05) for (var s = 0; s < 3; s++) circle(FIRE_AT.x + Math.sin(T * 2 + s) * 14, FIRE_AT.y - 40 - ((T * 30 + s * 25) % 75), 10 + s * 3, 'rgba(190,60,210,' + 0.35 * f + ')');
-      ctx.fillStyle = '#0b0520'; ctx.strokeStyle = MG; ctx.lineWidth = 3; glow(MG, 12);
+      if (f > 0.05) for (var s = 0; s < 3; s++) circle(FIRE_AT.x + Math.sin(T * 2 + s) * 14, FIRE_AT.y - 40 - ((T * 30 + s * 25) % 75), 10 + s * 3, 'rgba(80,120,80,' + 0.35 * f + ')');
+      ctx.fillStyle = '#010a01'; ctx.strokeStyle = MG; ctx.lineWidth = 3; glow(MG, 12);
       ctx.fillRect(470, GROUND - 42, 80, 42); ctx.strokeRect(470, GROUND - 42, 80, 42); noGlow();
       var t0 = sm(u / 2.6);
       var dx = lerp(540, 975, t0), dy = lerp(700, 300, t0) + (u > 2.6 ? Math.sin(T * 3) * 6 : 0);
@@ -246,7 +256,7 @@
       var open = sm((u - 2.8) / 0.6);
       building(function (r, c, x, y, w, h) {
         dimWin(x, y, w, h);
-        if (r === 5 && c === 2 && open > 0) { ctx.fillStyle = 'rgba(252,238,9,' + (0.85 * open) + ')'; glow(YL, 14 * open); ctx.fillRect(x, y, w, h); noGlow(); }
+        if (r === 5 && c === 2 && open > 0) { ctx.fillStyle = 'rgba(0,255,0,' + (0.85 * open) + ')'; glow(YL, 14 * open); ctx.fillRect(x, y, w, h); noGlow(); }
       });
       var dx, dy;
       if (u < 2.4) { var t = sm(u / 2.4); dx = lerp(250, 975, t); dy = lerp(640, 430, t); }
@@ -300,9 +310,9 @@
           ctx.fillStyle = 'rgba(25,240,255,.85)'; glow(CY, 10); ctx.fillRect(x, y, w, h); noGlow();
           ctx.fillStyle = 'rgba(232,249,255,.9)'; ctx.fillRect(x + 4, y + 4, 8, h - 8);
         } else {
-          ctx.fillStyle = '#1a0f33'; ctx.fillRect(x, y, w, h);
+          ctx.fillStyle = '#061406'; ctx.fillRect(x, y, w, h);
           ctx.strokeStyle = EDGE; ctx.lineWidth = 2; ctx.strokeRect(x, y, w, h);
-          ctx.fillStyle = 'rgba(255,43,214,.35)'; ctx.fillRect(x + 6, y + 8, 14, 5); ctx.fillRect(x + 18, y + 22, 12, 5);
+          ctx.fillStyle = 'rgba(0,255,0,.35)'; ctx.fillRect(x + 6, y + 8, 14, 5); ctx.fillRect(x + 18, y + 22, 12, 5);
         }
       });
       if (u > 0.8 && prog < 1) {
@@ -329,7 +339,7 @@
 
   function hud(sc) {
     // corner brackets
-    ctx.strokeStyle = 'rgba(25,240,255,.7)'; ctx.lineWidth = 3; glow(CY, 8);
+    ctx.strokeStyle = 'rgba(0,255,0,.55)'; ctx.lineWidth = 3; glow(MG, 8);
     var m = 36, l = 46;
     [[m, m, 1, 1], [W - m, m, -1, 1], [m, H - m, 1, -1], [W - m, H - m, -1, -1]].forEach(function (c) {
       ctx.beginPath(); ctx.moveTo(c[0] + c[2] * l, c[1]); ctx.lineTo(c[0], c[1]); ctx.lineTo(c[0], c[1] + c[3] * l); ctx.stroke();
@@ -337,11 +347,11 @@
     ctx.font = '600 26px ' + MONO; ctx.textBaseline = 'alphabetic';
     var flick = (Math.sin(T * 31) > 0.92) ? 0.55 : 1;
     ctx.globalAlpha = flick;
-    ctx.fillStyle = sc.prog ? MG : CY; glow(sc.prog ? MG : CY, 12);
-    ctx.fillText('> ' + sc.name.toUpperCase() + (Math.floor(T * 2) % 2 ? '_' : ' '), 78, 842);
+    ctx.fillStyle = MG; glow(MG, 10);
+    ctx.fillText(sc.name, 78, 842);
     var job = Math.floor(idx / 2) + 1;
-    ctx.fillStyle = YL; glow(YL, 10); ctx.textAlign = 'right';
-    ctx.fillText('JOB 0' + job + '/04', W - 78, 842); ctx.textAlign = 'left';
+    ctx.fillStyle = CY; glow(CY, 8); ctx.textAlign = 'right';
+    ctx.fillText(job + ' / 4', W - 78, 842); ctx.textAlign = 'left';
     ctx.globalAlpha = 1; noGlow();
   }
 
