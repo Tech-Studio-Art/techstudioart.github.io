@@ -824,6 +824,10 @@ footer .container {
   max-width: 440px;
 }
 
+.app-item .work-open {
+  margin-top: 20px;
+}
+
 .drone-status {
   margin-bottom: 0;
 }
